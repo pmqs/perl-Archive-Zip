@@ -51,6 +51,7 @@ jobs:
         AUTOMATED_TESTING: 1
       run: |
         # prove "-j" not available with 5.8
+        echo START
         perl -e '$] =~ /^5.008/ && exit 1'
         status=$?
         echo Status is $status
