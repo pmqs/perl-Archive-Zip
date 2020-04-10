@@ -54,7 +54,7 @@ jobs:
         perl -e '$] =~ /^5.008/ && exit 1'
         status=$?
         echo Status is $status
-        if [ $status -eq 0 ] ;
+        if [ "$status" = "0" ] ;
         then
           echo NOT 5.8
           prove -lrs -j2 t
