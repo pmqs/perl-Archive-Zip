@@ -51,17 +51,13 @@ jobs:
         AUTOMATED_TESTING: 1
       run: |
         # prove "-j" not available with 5.8
-        echo START
-        perl -e '$] =~ /^5.008/ && exit 1'
-        status=$?
-        echo Status is $status
-        if [ "$status" = "0" ] ;
+        got=`perl -e 'print $] =~ /^5.008/ ? "58\n" : "other\n"'
+        if [ "$got" = "58" ] ;
+          prove -lrs t
         then
           echo NOT 5.8
-          prove -lrs -j2 t
         else
           echo IS 5.8
-          prove -lrs t
+          prove -lrs -j2 t
         fi
-        echo DONE
       shell: sh
