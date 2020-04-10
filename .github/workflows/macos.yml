@@ -39,7 +39,10 @@ jobs:
     - name: Perl version
       run: perl -V
     - name: Install dependencies
-      run: cpanm --quiet --installdeps --notest .
+      run: |
+        cpanm --quiet --installdeps --notest .
+        # make sure have latest version of prove
+        cpanm App::Prove
     - name: Build
       run: perl Makefile.PL && make
     - name: Standard Test
@@ -49,13 +52,4 @@ jobs:
     - name: Shuffle Test
       env:
         AUTOMATED_TESTING: 1
-      run: |
-        # prove "-j" not available with 5.8
-        got=`perl -e 'print $] <  5.010 ? "58\n" : "other\n" '`
-        if [ "$got" = "58" ] ;
-        then
-          prove -lrs t
-        else
-          prove -lrs -j2 t
-        fi
-      shell: sh
+      run: prove -lrs -j2 t
