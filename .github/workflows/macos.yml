@@ -53,7 +53,7 @@ jobs:
         # prove "-j" not available with 5.8
         perl -e '$] =~ /^5.008/ && exit 1'
         status=$?
-        if [ $status == 0] ;
+        if [ $status = 0 ] ;
         then
           prove -lrs -j2 t
         else
