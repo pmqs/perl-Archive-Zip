@@ -55,8 +55,11 @@ jobs:
         status=$?
         if [ $status = 0 ] ;
         then
+          echo NOT 5.8
           prove -lrs -j2 t
         else
+          echo IS 5.8
           prove -lrs t
         fi
+        echo DONE
       shell: sh
