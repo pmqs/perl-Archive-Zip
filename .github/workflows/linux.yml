@@ -42,22 +42,20 @@ jobs:
       run: cpanm --quiet --installdeps --notest .
     - name: Build
       run: perl Makefile.PL && make
-    - name: Test
+    - name: Standard Test
       env:
         AUTOMATED_TESTING: 1
-      run: make test
+      run: prove -lr t
     - name: Shuffle Test
       env:
         AUTOMATED_TESTING: 1
       run: |
         # prove "-j" not available with 5.8
-        got=`perl -e 'print $] =~ /^5.008/ ? "58\n" : "other\n"'
+        got=`perl -e 'print $] <=  5.008 ? "58\n" : "other\n" '`
         if [ "$got" = "58" ] ;
-          prove -lrs t
         then
-          echo NOT 5.8
+          prove -lrs t
         else
-          echo IS 5.8
           prove -lrs -j2 t
         fi
       shell: sh
