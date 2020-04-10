@@ -46,3 +46,7 @@ jobs:
       env:
         AUTOMATED_TESTING: 1
       run: make test
+    - name: Shuffle Test
+      env:
+        AUTOMATED_TESTING: 1
+      run: prove -lrs -j2 t
