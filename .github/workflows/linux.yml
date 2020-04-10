@@ -49,4 +49,8 @@ jobs:
     - name: Shuffle Test
       env:
         AUTOMATED_TESTING: 1
-      run: prove -lrs -j2 t
+      run: |
+        env
+        prove --version
+        prove -lrs -j2 t
+      shell: sh
