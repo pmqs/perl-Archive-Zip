@@ -51,7 +51,7 @@ jobs:
         AUTOMATED_TESTING: 1
       run: |
         # prove "-j" not available with 5.8
-        got=`perl -e 'print $] <=  5.008 ? "58\n" : "other\n" '`
+        got=`perl -e 'print $] <  5.010 ? "58\n" : "other\n" '`
         if [ "$got" = "58" ] ;
         then
           prove -lrs t
